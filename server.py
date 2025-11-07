@@ -14,13 +14,19 @@ def emotion_detector_web():
     # Calls the application to analyze the input text
     input_text = request.args.get("textToAnalyze")
     emotion = emotion_detector(input_text)
-    # Format the result
-    formatted_output = f'''For the given statement,
-    the system response is 'anger' : {emotion.get('anger')}, 
-    'disgust' : {emotion.get('disgust')}, 'fear' : {emotion.get('fear')}, 
-    'joy' : {emotion.get('joy')}, 'sadness' : {emotion.get('sadness')}. 
-    The dominant emotion is {emotion.get('dominant_emotion')}.
-    '''
+
+    # Verifies if emotion has a "none" result
+    if emotion.get("dominant_emotion") is None:
+        return "Invalid text! Please try again!."
+    
+    else:
+        # Format the result
+        formatted_output = f'''For the given statement,
+        the system response is 'anger' : {emotion.get('anger')}, 
+        'disgust' : {emotion.get('disgust')}, 'fear' : {emotion.get('fear')}, 
+        'joy' : {emotion.get('joy')}, 'sadness' : {emotion.get('sadness')}. 
+        The dominant emotion is {emotion.get('dominant_emotion')}.
+        '''
     return formatted_output
 
 # Run the application
