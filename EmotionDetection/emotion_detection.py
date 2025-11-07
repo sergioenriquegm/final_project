@@ -18,7 +18,7 @@ def emotion_detector(text_to_analyze):
     
         return emotions
     
-    # In case of error code 
+    # In case of error code 400
     elif response.status_code == 400:
         return {
         "anger" : None, 
